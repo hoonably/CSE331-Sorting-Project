@@ -45,7 +45,7 @@ def accuracy_score_file(filename):
             nums = list(map(int, f.read().strip().split()))
         except ValueError:
             return 0.0
-    if len(nums) <= 1:
+    if len(nums) <= 1:  # if the file is empty or has only one number
         return 1.0
     violations = sum(1 for i in range(len(nums) - 1) if nums[i] > nums[i + 1])
     score = 1.0 - (violations / (len(nums) - 1))
@@ -91,7 +91,7 @@ def benchmark_all():
 
             is_stack_overflow = False
             rep = 0
-            while rep < REPEAT:
+            for rep in range(REPEAT):
                 rep += 1
                 elapsed = run_once(f"./{TEMP_EXEC}", input_path, output_file)
 
