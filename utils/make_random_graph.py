@@ -24,7 +24,7 @@ def plot_random_input_comparison(results):
     for algo_name, filedata in results.items():
         series = []
         for filename, (time_sec, _) in filedata.items():
-            if time_sec < 0:
+            if time_sec < 0:  # stack overflow
                 continue
             match = re.match(r"n0*([0-9]+)_random\.txt", filename)
             if not match:
