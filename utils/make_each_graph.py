@@ -13,7 +13,7 @@ def load_results_from_csv(csv_path="benchmark_results.csv"):
             algo = row["algorithm"]
             fname = row["input_file"]
             try:
-                time = float(row["avg_time"])
+                time = float(row["time_sec"])
                 acc = float(row["accuracy"])
                 results[algo][fname] = (time, acc)
             except ValueError:
@@ -66,5 +66,5 @@ def plot_all_algorithms(results):
         plot_by_input_type(results, algo_name)
 
 if __name__ == "__main__":
-    results = load_results_from_csv("../tests/benchmark_results.csv")
+    results = load_results_from_csv("../results/benchmark_results.csv")
     plot_all_algorithms(results)
