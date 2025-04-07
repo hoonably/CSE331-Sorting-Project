@@ -33,17 +33,45 @@ This repository contains the source code, dataset generators, and experimental s
 
 ## 📁 Repository Structure
 
-- `basic_sorting/`: Conventional sorting algorithms (implemented from scratch)
-- `advanced_sorting/`: Modern sorting algorithms with pseudocode reference
-- `utils/`: Input generation, timing tools, and plot functions
-- `tests/`: Scripts to run experiments and validate sorting correctness
-- `report/`: ACM format LaTeX report (see `sample-sigconf.tex`)
+- `basic_sorting/`  
+  Conventional sorting algorithms implemented from scratch:  
+  - Bubble Sort, Insertion Sort, Selection Sort  
+  - Merge Sort, Quick Sort, Heap Sort
+
+- `advanced_sorting/`  
+  Advanced or modern sorting algorithms based on theoretical pseudocode:  
+  - Tim Sort, Introsort, Library Sort  
+  - Comb Sort, Cocktail Shaker Sort, Tournament Sort
+
+- `input/`  
+  Generated input files of various sizes and types:  
+  - Sizes: 1,000 ~ 1,000,000  
+  - Types: random, sorted, reverse-sorted, partially sorted (50%, 80%)
+
+- `output/`  
+  Output files from sorting executions, organized per algorithm
+
+- `results/`  
+  Aggregated benchmark results and generated plots:  
+  - `benchmark_results.csv`: execution time & accuracy per input  
+  - `.png`: log-log plot of time vs. input size by type
+
+- `tests/`  
+  Experimental framework:
+  - `benchmark.py`: compiles and evaluates all algorithms
+  - `main.cpp`: universal main function for measuring execution
+  - Generates temporary executables to test individual sorts
+
+- `utils/`  
+  Support tools:  
+  - `generator.py`: creates sorted/unsorted input sets  
+  - `make_graph.py`: visualizes benchmark results from CSV  
 
 ## ▶️ How to Run
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/CSE331-Sorting-Project.git
+   git clone https://github.com/hoonably/CSE331-Sorting-Project.git
    cd CSE331-Sorting-Project
    ```
 
@@ -54,7 +82,8 @@ This repository contains the source code, dataset generators, and experimental s
 
 3. Run test runner to benchmark all algorithms:
    ```bash
-   python tests/test_runner.py
+   cd tests
+   python3 benchmark.py
    ```
 
 ## 🧪 Dataset Types
@@ -64,10 +93,15 @@ The following input sequences are tested:
 - Sorted (ascending)
 - Sorted (descending)
 - Random
-- Partially sorted
+- Partially sorted (50%, 80%)  
 
-Each test is executed 10 times to compute the average execution time.
+How to test:
 
-## 📄 Report
+- Each test is repeated up to 10 times.
+- If any run exceeds 60 seconds, the test stops early and uses the average of completed runs.
+- Sorting accuracy and time are measured separately.
 
-The full analysis is documented in [`report/sample-sigconf.tex`](report/sample-sigconf.tex), written in ACM sigconf format.
+## 📄 Data & Report
+
+- Graphs saved to: `results/{algorithm_name}.png` (log-log scale)
+- The full analysis is documented in [`report/20201118.tex`](report/20201118.tex), written in ACM sigconf format.
