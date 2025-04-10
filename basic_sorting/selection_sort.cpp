@@ -20,7 +20,8 @@ Space Complexity:
 #include <vector>
 #include <algorithm>
 
-void selection_sort(std::vector<int>& A) {
+template <typename T>
+void selection_sort(std::vector<T>& A) {
     int n = A.size();
     for (int i = 0; i < n - 1; ++i) {
         int min_index = i;

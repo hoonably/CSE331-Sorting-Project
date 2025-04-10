@@ -56,14 +56,11 @@ This repository contains the source code, dataset generators, and experimental s
   - `benchmark_results.csv`: execution time & accuracy per input  
   - `.png`: log-log plot of time vs. input size by type
 
-- `tests/`  
-  Experimental framework:
+- `utils/`  
+  Experimental framework & Support tools:  
   - `benchmark.py`: compiles and evaluates all algorithms
   - `main.cpp`: universal main function for measuring execution
   - Generates temporary executables to test individual sorts
-
-- `utils/`  
-  Support tools:  
   - `generator.py`: creates sorted/unsorted input sets  
   - `make_graph.py`: visualizes benchmark results from CSV  
 

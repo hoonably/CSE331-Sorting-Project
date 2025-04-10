@@ -35,21 +35,23 @@ Space Complexity:
 */
 
 #include <vector>
-#include <climits>
+#include <limits>
 
-void merge(std::vector<int>& A, int p, int q, int r) {
+template <typename T>
+void merge(std::vector<T>& A, int p, int q, int r) {
+    T SENTINEL = std::numeric_limits<T>::max();
     int n1 = q - p + 1;
     int n2 = r - q;
-    std::vector<int> L(n1 + 1);
-    std::vector<int> R(n2 + 1);
+    std::vector<T> L(n1 + 1);
+    std::vector<T> R(n2 + 1);
 
     for (int i = 0; i < n1; ++i)
         L[i] = A[p + i];
     for (int j = 0; j < n2; ++j)
         R[j] = A[q + 1 + j];
 
-    L[n1] = INT_MAX;
-    R[n2] = INT_MAX;
+    L[n1] = SENTINEL;
+    R[n2] = SENTINEL;
 
     int i = 0, j = 0;
     for (int k = p; k <= r; ++k) {
@@ -60,7 +62,8 @@ void merge(std::vector<int>& A, int p, int q, int r) {
     }
 }
 
-void merge_sort_range(std::vector<int>& A, int p, int r) {
+template <typename T>
+void merge_sort_range(std::vector<T>& A, int p, int r) {
     if (p < r) {
         int q = (p + r) / 2;
         merge_sort_range(A, p, q);
@@ -70,6 +73,7 @@ void merge_sort_range(std::vector<int>& A, int p, int r) {
 }
 
 // If you want to sort the entire array, you can call this function
-void merge_sort(std::vector<int>& A) {
+template <typename T>
+void merge_sort(std::vector<T>& A) {
     merge_sort_range(A, 0, A.size() - 1);
 }

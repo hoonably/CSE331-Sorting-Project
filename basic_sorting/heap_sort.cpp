@@ -36,9 +36,11 @@ Space Complexity:
 #include <algorithm>
 
 int LEFT(int i) { return 2 * i + 1; }
+
 int RIGHT(int i) { return 2 * i + 2; }
 
-void max_heapify(std::vector<int>& A, int heap_size, int i) {
+template <typename T>
+void max_heapify(std::vector<T>& A, int heap_size, int i) {
     int l = LEFT(i);
     int r = RIGHT(i);
     int largest = i;
@@ -54,13 +56,15 @@ void max_heapify(std::vector<int>& A, int heap_size, int i) {
     }
 }
 
-void build_max_heap(std::vector<int>& A) {
+template <typename T>
+void build_max_heap(std::vector<T>& A) {
     int heap_size = A.size();
     for (int i = heap_size / 2 - 1; i >= 0; --i)
-        max_heapify(A, heap_size, i);
+        max_heapify<T>(A, heap_size, i);
 }
 
-void heap_sort(std::vector<int>& A) {
+template <typename T>
+void heap_sort(std::vector<T>& A) {
     int heap_size = A.size();
     build_max_heap(A);
     for (int i = heap_size - 1; i > 0; --i) {

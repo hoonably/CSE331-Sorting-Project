@@ -28,8 +28,9 @@ Space Complexity:
 #include <vector>
 #include <algorithm>
 
-int partition(std::vector<int>& A, int p, int r) {
-    int x = A[r];       // pivot
+template <typename T>
+int partition(std::vector<T>& A, int p, int r) {
+    T x = A[r];       // pivot
     int i = p - 1;
     for (int j = p; j < r; ++j) {
         if (A[j] <= x) {
@@ -41,7 +42,8 @@ int partition(std::vector<int>& A, int p, int r) {
     return i + 1;
 }
 
-void quick_sort_range(std::vector<int>& A, int p, int r) {
+template <typename T>
+void quick_sort_range(std::vector<T>& A, int p, int r) {
     if (p < r) {
         int q = partition(A, p, r);
         quick_sort_range(A, p, q - 1);
@@ -49,6 +51,7 @@ void quick_sort_range(std::vector<int>& A, int p, int r) {
     }
 }
 
-void quick_sort(std::vector<int>& A) {
+template <typename T>
+void quick_sort(std::vector<T>& A) {
     quick_sort_range(A, 0, A.size() - 1);
 }

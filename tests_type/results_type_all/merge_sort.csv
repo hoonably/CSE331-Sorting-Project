@@ -1,0 +1,5 @@
+type,time_sec,accuracy
+int,0.10331,1.0
+longlong,0.115802,1.0
+float,0.126237,1.0
+double,0.138462,1.0

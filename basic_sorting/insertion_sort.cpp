@@ -20,10 +20,11 @@ Space Complexity:
 
 #include <vector>
 
-void insertion_sort(std::vector<int>& A) {
+template <typename T>
+void insertion_sort(std::vector<T>& A) {
     int n = A.size();
     for (int j = 1; j < n; ++j) {
-        int key = A[j];
+        T key = A[j];
         int i = j - 1;
         while (i >= 0 && A[i] > key) {
             A[i + 1] = A[i];
