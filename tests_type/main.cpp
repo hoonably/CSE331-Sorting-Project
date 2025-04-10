@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
         time = std::chrono::duration<double>(end - start).count();
         accuracy = calculate_accuracy(data);
     }
-    else if (type == "longlong") {
+    else if (type == "long long") {
         std::vector<long long> data = read_input<long long>(input_path);
         auto start = std::chrono::high_resolution_clock::now();
         // run_sort(data);

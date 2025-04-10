@@ -19,4 +19,4 @@ if __name__ == "__main__":
     os.makedirs(output_dir, exist_ok=True)
 
     data = generate_stability_input(1000)
-    save_stability_input(data, "../input/stability_1000.txt")
+    save_stability_input(data, "../test_stability/stability_1000.txt")

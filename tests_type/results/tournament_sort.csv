@@ -1,5 +1,5 @@
 algorithm,type,time_sec,accuracy
-tournament_sort,int,0.149714,1.0
-tournament_sort,longlong,0.186456,1.0
-tournament_sort,float,0.211401,1.0
-tournament_sort,double,0.244693,1.0
+tournament_sort,int,0.146255,1.0
+tournament_sort,long long,0.163535,1.0
+tournament_sort,float,0.213123,1.0
+tournament_sort,double,0.271461,1.0

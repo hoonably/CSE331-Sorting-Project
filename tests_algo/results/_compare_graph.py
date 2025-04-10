@@ -51,12 +51,12 @@ def plot_random_input_comparison(results, input):
     plt.grid(True, which="both", linestyle="--")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(f"../results/compare/{input}.png", dpi=300)
+    plt.savefig(f"compare/{input}.png", dpi=300)
     plt.close()
-    print(f"✅ Saved to ../results/compare/{input}.png")
+    print(f"✅ Saved to compare/{input}.png")
 
 if __name__ == "__main__":
-    results = load_all_results_from_folder("../results/csv")
+    results = load_all_results_from_folder("csv")
     CATEGORIES = ["sorted_asc", "sorted_desc", "random", "partial_50", "partial_80"]
     for input in CATEGORIES:
         plot_random_input_comparison(results, input)

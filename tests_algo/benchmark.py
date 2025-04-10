@@ -6,7 +6,7 @@ from collections import defaultdict
 import csv
 
 ALGORITHMS = {
-    # "tim_sort": "advanced_sorting/tim_sort.cpp",  # ✅
+    "tim_sort": "advanced_sorting/tim_sort.cpp",  # ✅
     # "intro_sort": "advanced_sorting/intro_sort.cpp",  # ✅
     # "heap_sort": "basic_sorting/heap_sort.cpp",  # ✅
     # "merge_sort": "basic_sorting/merge_sort.cpp",  # ✅
@@ -14,7 +14,7 @@ ALGORITHMS = {
     # "comb_sort": "advanced_sorting/comb_sort.cpp",  # ✅
     # "quick_sort_random": "basic_sorting/quick_sort_random.cpp",  # ✅
     # "quick_sort": "basic_sorting/quick_sort.cpp",  # ✅
-    "cocktail_shaker_sort": "advanced_sorting/cocktail_shaker_sort.cpp",
+    # "cocktail_shaker_sort": "advanced_sorting/cocktail_shaker_sort.cpp",
     # "insertion_sort": "basic_sorting/insertion_sort.cpp",
     # "selection_sort": "basic_sorting/selection_sort.cpp",
     # "bubble_sort": "basic_sorting/bubble_sort.cpp",
@@ -62,7 +62,7 @@ def warmup_io(input_path):
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def save_results_to_csv(results, algo_name):
-    csv_path = f"../results/csv/{algo_name}.csv"
+    csv_path = f"results/csv/{algo_name}.csv"
     with open(csv_path, "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["input_file", "time_sec", "accuracy"])

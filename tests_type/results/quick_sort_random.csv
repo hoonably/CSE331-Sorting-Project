@@ -1,5 +1,5 @@
 algorithm,type,time_sec,accuracy
-quick_sort_random,int,0.0602878,1.0
-quick_sort_random,longlong,0.060491,1.0
-quick_sort_random,float,0.0734468,1.0
-quick_sort_random,double,0.0722297,1.0
+quick_sort_random,int,0.0593769,1.0
+quick_sort_random,long long,0.059405,1.0
+quick_sort_random,float,0.0715844,1.0
+quick_sort_random,double,0.071551,1.0

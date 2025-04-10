@@ -2,9 +2,8 @@ import subprocess
 import os
 import csv
 
-INPUT_FILE = "input/stability_1000.txt"
+INPUT_FILE = "stability_1000.txt"
 OUTPUT_DIR = "output"
-RESULTS_DIR = "../results/stability"
 REPEAT = 10
 
 ALGORITHMS = {
@@ -78,7 +77,6 @@ def compile_with_main(algo_name, algo_path):
 
 def benchmark_stability():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    os.makedirs(RESULTS_DIR, exist_ok=True)
 
     original_data = read_struct_input(INPUT_FILE)
 
@@ -106,7 +104,7 @@ def benchmark_stability():
         results.append((algo_name, result))
 
     # 🔁 overwrite
-    with open(f"{RESULTS_DIR}/stability.csv", "w", newline="") as f:
+    with open("stability.csv", "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["algorithm", "stability"])
         writer.writerows(results)

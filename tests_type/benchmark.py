@@ -19,7 +19,7 @@ ALGORITHMS = {
     "library_sort": "advanced_sorting/library_sort.cpp",
 }
 
-TYPES = ["int", "longlong", "float", "double"]
+TYPES = ["int", "long long", "float", "double"]
 INPUT_FILE = "../input/n1000000_random.txt"
 MAIN_TEMPLATE = "main.cpp"
 TEMP_MAIN = "temp_typed.cpp"

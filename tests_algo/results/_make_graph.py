@@ -50,13 +50,13 @@ def plot_one_algorithm(csv_path):
     plt.grid(True, which="both", linestyle="--")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(f"{"../results/graph"}/{algo_name}.png", dpi=300)
+    plt.savefig(f"{"graph"}/{algo_name}.png", dpi=300)
     plt.close()
 
 def plot_all():
-    for filename in os.listdir("../results/csv"):
+    for filename in os.listdir("csv"):
         if filename.endswith(".csv"):
-            plot_one_algorithm(os.path.join("../results/csv", filename))
+            plot_one_algorithm(os.path.join("csv", filename))
 
 if __name__ == "__main__":
     plot_all()
