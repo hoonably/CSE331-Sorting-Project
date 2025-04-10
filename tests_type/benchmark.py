@@ -21,12 +21,11 @@ ALGORITHMS = {
 
 TYPES = ["int", "longlong", "float", "double"]
 INPUT_FILE = "../input/n1000000_random.txt"
-OUTPUT_FILE = "temp_output.txt"
 MAIN_TEMPLATE = "main.cpp"
 TEMP_MAIN = "temp_typed.cpp"
 TEMP_EXEC = "temp_exec"
 
-RESULTS_DIR = "results_type_all"
+RESULTS_DIR = "results"
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 def compile_main_template(algo_name, algo_path):
@@ -40,7 +39,7 @@ def compile_main_template(algo_name, algo_path):
 
 def run_once(type_name):
     result = subprocess.run(
-        [f"./{TEMP_EXEC}", type_name, INPUT_FILE, OUTPUT_FILE],
+        [f"./{TEMP_EXEC}", type_name, INPUT_FILE],
         capture_output=True, text=True
     )
     try:
@@ -60,12 +59,12 @@ def benchmark_all():
         for typ in TYPES:
             time_sec, acc = run_once(typ)
             print(f"    {typ:<10}: {time_sec:.7f} sec, Accuracy: {acc:.4f}")
-            rows.append([typ, time_sec, acc])
+            rows.append([algo_name, typ, time_sec, acc])
 
         csv_path = os.path.join(RESULTS_DIR, f"{algo_name}.csv")
         with open(csv_path, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["type", "time_sec", "accuracy"])
+            writer.writerow(["algorithm", "type", "time_sec", "accuracy"])
             writer.writerows(rows)
 
         print(f"    📄 Saved to {csv_path}")

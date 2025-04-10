@@ -1,0 +1,5 @@
+algorithm,type,time_sec,accuracy
+merge_sort,int,0.105961,1.0
+merge_sort,longlong,0.117592,1.0
+merge_sort,float,0.129759,1.0
+merge_sort,double,0.139922,1.0

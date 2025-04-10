@@ -1,5 +1,0 @@
-type,time_sec,accuracy
-int,0.0740139,1.0
-longlong,0.0757205,1.0
-float,0.0926828,1.0
-double,0.0941757,1.0
