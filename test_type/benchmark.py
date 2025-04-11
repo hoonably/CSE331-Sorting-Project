@@ -12,10 +12,10 @@ ALGORITHMS = {
     # "comb_sort": "advanced_sorting/comb_sort.cpp",  # ✅
     # "quick_sort_random": "basic_sorting/quick_sort_random.cpp",  # ✅
     # "quick_sort": "basic_sorting/quick_sort.cpp",  # ✅
-    "cocktail_shaker_sort": "advanced_sorting/cocktail_shaker_sort.cpp",
-    "insertion_sort": "basic_sorting/insertion_sort.cpp",
-    "selection_sort": "basic_sorting/selection_sort.cpp",
-    "bubble_sort": "basic_sorting/bubble_sort.cpp",
+    # "cocktail_shaker_sort": "advanced_sorting/cocktail_shaker_sort.cpp",  # ✅
+    # "insertion_sort": "basic_sorting/insertion_sort.cpp",  # ✅
+    # "selection_sort": "basic_sorting/selection_sort.cpp",  # ✅
+    # "bubble_sort": "basic_sorting/bubble_sort.cpp",  # ✅
     "library_sort": "advanced_sorting/library_sort.cpp",
 }
 

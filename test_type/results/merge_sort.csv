@@ -1,5 +1,5 @@
 algorithm,type,time_sec,accuracy
-merge_sort,int,0.102897,1.0
-merge_sort,long long,0.115159,1.0
-merge_sort,float,0.126963,1.0
-merge_sort,double,0.139819,1.0
+merge_sort,int,0.103889,1.0
+merge_sort,long long,0.11767,1.0
+merge_sort,float,0.129069,1.0
+merge_sort,double,0.141755,1.0
