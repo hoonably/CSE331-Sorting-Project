@@ -2,24 +2,23 @@ import subprocess
 import os
 import csv
 
-INPUT_FILE = "stability_1000.txt"
+INPUT_FILE = "input/stability_1000.txt"
 OUTPUT_DIR = "output"
 REPEAT = 10
 
 ALGORITHMS = {
-    "tim_sort": "advanced_sorting/tim_sort.cpp",  # ✅ (Stable)
-    "intro_sort": "advanced_sorting/intro_sort.cpp",  # ❌
-    "heap_sort": "basic_sorting/heap_sort.cpp",  # ❌
     "merge_sort": "basic_sorting/merge_sort.cpp",  # ✅ (Stable)
-    "quick_sort_random": "basic_sorting/quick_sort_random.cpp",  # ❌
-    "quick_sort": "basic_sorting/quick_sort.cpp",  # ❌
-    "tournament_sort": "advanced_sorting/tournament_sort.cpp",  # ✅ (Stable)
-    "library_sort": "advanced_sorting/library_sort.cpp",  # ❌
-    "comb_sort": "advanced_sorting/comb_sort.cpp",  # ❌
-    "cocktail_shaker_sort": "advanced_sorting/cocktail_shaker_sort.cpp",  # ✅ (Stable)
+    "heap_sort": "basic_sorting/heap_sort.cpp",  # ❌
+    "bubble_sort": "basic_sorting/bubble_sort.cpp",  # ✅ (Stable)
     "insertion_sort": "basic_sorting/insertion_sort.cpp",  # ✅ (Stable)
     "selection_sort": "basic_sorting/selection_sort.cpp",  # ❌
-    "bubble_sort": "basic_sorting/bubble_sort.cpp",  # ✅ (Stable)
+    "quick_sort": "basic_sorting/quick_sort.cpp",  # ❌
+    "library_sort": "advanced_sorting/library_sort.cpp",  # ❌
+    "cocktail_shaker_sort": "advanced_sorting/cocktail_shaker_sort.cpp",  # ✅ (Stable)
+    "tim_sort": "advanced_sorting/tim_sort.cpp",  # ✅ (Stable)
+    "comb_sort": "advanced_sorting/comb_sort.cpp",  # ❌
+    "tournament_sort": "advanced_sorting/tournament_sort.cpp",  # ✅ (Stable)
+    "intro_sort": "advanced_sorting/intro_sort.cpp",  # ❌
 }
 
 MAIN_TEMPLATE = "main.cpp"

@@ -56,6 +56,8 @@ def plot_one_algorithm(csv_path):
 def plot_all():
     for filename in os.listdir("csv"):
         if filename.endswith(".csv"):
+            if filename == "__combined_results.csv":
+                continue
             plot_one_algorithm(os.path.join("csv", filename))
 
 if __name__ == "__main__":
