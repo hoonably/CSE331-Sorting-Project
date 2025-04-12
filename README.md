@@ -1,104 +1,169 @@
-# CSE331 - Sorting Algorithm Analysis and Implementation
+# CSE331 Sorting Algorithm Benchmark Project
 
-This repository contains the source code, dataset generators, and experimental scripts for Assignment #1 in CSE331: Introduction to Algorithms (2025, UNIST). The goal of this assignment is to implement, analyze, and compare the performance of 12 different sorting algorithms.
+This project implements and benchmarks 12 classical and advanced sorting algorithms under consistent experimental conditions. It evaluates performance, memory usage, stability, and accuracy across various input types and data scales.
 
-## 📌 Objectives
+Author: Jeonghoon Park (20201118)  
+UNIST, South Korea  
+[GitHub Project Page](https://github.com/hoonably/CSE331-Sorting-Project)
 
-- Implement 6 conventional comparison-based sorting algorithms
-- Implement 6 contemporary/modern sorting algorithms
-- Analyze each algorithm's design, time complexity, and stability
-- Generate various input datasets (random, sorted, reversed, partially sorted)
-- Evaluate execution time, memory usage, and correctness
-- Present results in a structured report following the ACM sigconf format
+---
 
-## 🔧 Implemented Algorithms
+## 🔍 Overview
 
-### Basic Sorting Algorithms (Comparison-based)
+Sorting is a fundamental operation in computer science. While classical algorithms like Merge Sort or Quick Sort are widely used, modern variants like Tim Sort and Intro Sort offer practical advantages in performance, adaptivity, and space complexity.
 
-- Merge Sort
-- Heap Sort
-- Bubble Sort
-- Insertion Sort
-- Selection Sort
-- Quick Sort
+This project explores:
 
-### Advanced Sorting Algorithms (Modern)
+- Implementation of 12 sorting algorithms in C++
+- Benchmarking across different input orders and data types
+- Analysis of runtime, memory usage, stability, and accuracy
 
-- Library Sort
-- Tim Sort
-- Cocktail Shaker Sort
-- Comb Sort
-- Tournament Sort
-- Introsort
+---
 
-## 📁 Repository Structure
+## 📁 Directory Structure
 
-- `basic_sorting/`  
-  Conventional sorting algorithms implemented from scratch:  
-  - Bubble Sort, Insertion Sort, Selection Sort  
-  - Merge Sort, Quick Sort, Heap Sort
+```bash
+.
+├── basic_sorting/            # Classical sorting algorithms
+│   ├── bubble_sort.cpp
+│   ├── heap_sort.cpp
+│   ├── insertion_sort.cpp
+│   ├── merge_sort.cpp
+│   ├── quick_sort.cpp
+│   ├── quick_sort_random.cpp
+│   └── selection_sort.cpp
+├── advanced_sorting/         # Advanced sorting algorithms
+│   ├── cocktail_shaker_sort.cpp
+│   ├── comb_sort.cpp
+│   ├── intro_sort.cpp
+│   ├── library_sort.cpp
+│   ├── tim_sort.cpp
+│   └── tournament_sort.cpp
+├── test_algo/                # Main performance benchmarking (runtime)
+│   ├── main.cpp
+│   ├── benchmark.py
+│   └── results/
+├── test_memory/              # Memory usage benchmark
+│   ├── main.cpp
+│   ├── benchmark.py
+│   └── results_memory.csv
+├── test_stability/           # Stability testing
+│   ├── main.cpp
+│   ├── benchmark.py
+│   ├── stability.csv
+│   ├── input/
+│   └── output/
+├── test_type/                # Data type sensitivity benchmark
+│   ├── main.cpp
+│   ├── benchmark.py
+│   └── results/
+├── utils/                    # Input generation scripts
+│   ├── input_generator.py
+│   └── stability_input_generator.py
+├── .gitignore
+└── README.md                 # You're here!
+```
 
-- `advanced_sorting/`  
-  Advanced or modern sorting algorithms based on theoretical pseudocode:  
-  - Tim Sort, Introsort, Library Sort  
-  - Comb Sort, Cocktail Shaker Sort, Tournament Sort
+---
 
-- `input/`  
-  Generated input files of various sizes and types:  
-  - Sizes: 1,000 ~ 1,000,000  
-  - Types: random, sorted, reverse-sorted, partially sorted (50%, 80%)
+## ⚙️ How to Run
 
-- `output/`  
-  Output files from sorting executions, organized per algorithm
+This project includes four main experimental modules. Each one contains a C++ binary for core sorting logic and a Python script for benchmarking and logging results.
 
-- `results/`  
-  Aggregated benchmark results and generated plots:  
-  - `benchmark_results.csv`: execution time & accuracy per input  
-  - `.png`: log-log plot of time vs. input size by type
+---
 
-- `utils/`  
-  Experimental framework & Support tools:  
-  - `benchmark.py`: compiles and evaluates all algorithms
-  - `main.cpp`: universal main function for measuring execution
-  - Generates temporary executables to test individual sorts
-  - `generator.py`: creates sorted/unsorted input sets  
-  - `make_graph.py`: visualizes benchmark results from CSV  
+### 🔹 1. Algorithm Performance Benchmark (`test_algo`)
 
-## ▶️ How to Run
+**Purpose**: Measure average runtime of 12 sorting algorithms on random and structured inputs of various sizes.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/hoonably/CSE331-Sorting-Project.git
-   cd CSE331-Sorting-Project
-   ```
+```bash
+cd test_algo
+python3 benchmark.py
+```
 
-2. Install required packages (optional for plotting):
-   ```bash
-   pip install matplotlib
-   ```
+Results will be saved in the `results/` directory.
 
-3. Run test runner to benchmark all algorithms:
-   ```bash
-   cd tests
-   python3 benchmark.py
-   ```
+---
 
-## 🧪 Dataset Types
+### 🔹 2. Memory Usage Benchmark (`test_memory`)
 
-The following input sequences are tested:
+**Purpose**: Measure peak memory usage (`ru_maxrss`) during execution of each sorting algorithm.
 
-- Sorted (ascending)
-- Sorted (descending)
-- Random
-- Partially sorted (50%, 80%)  
+```bash
+cd test_memory
+python3 benchmark.py
+```
 
-How to test:
+Output will be stored in `results_memory.csv`.
 
-- Each test is repeated up to 10 times.
-- If any run exceeds 60 seconds, the test stops early and uses the average of completed runs.
-- Sorting accuracy and time are measured separately.
+---
 
-## 📄 Data & Report
+### 🔹 3. Stability Analysis (`test_stability`)
 
-- Graphs saved to: `results/{algorithm_name}.png` (log-log scale)
-- The full analysis is documented in [`report/20201118.tex`](report/20201118.tex), written in ACM sigconf format.
+**Purpose**: Test whether each algorithm preserves the relative order of equal elements (stability).
+
+```bash
+cd test_stability
+python3 benchmark.py
+```
+
+- Input samples are in the `input/` folder  
+- Sorted outputs are written to `output/`  
+- Final stability report is saved as `stability.csv`
+
+---
+
+### 🔹 4. Data Type Sensitivity Benchmark (`test_type`)
+
+**Purpose**: Evaluate how sorting performance changes with different numeric types (`int`, `long long`, `float`, `double`).
+
+```bash
+cd test_type
+python3 benchmark.py
+```
+
+Results are stored in the `results/` directory.
+
+---
+
+### 📌 Prerequisites
+
+- Python 3.x
+- C++17 compatible compiler (e.g., `g++`, `clang++`)
+- Tested on macOS and Linux (UNIX-like systems recommended)
+
+---
+
+## 📈 Implemented Algorithms
+
+| Category  | Algorithms                                                                 |
+|-----------|----------------------------------------------------------------------------|
+| Basic     | Merge Sort, Heap Sort, Bubble Sort, Insertion Sort, Selection Sort, Quick Sort |
+| Advanced  | Quick Sort (Random Pivot), Library Sort, Tim Sort, Comb Sort, Cocktail Shaker Sort, Tournament Sort, Intro Sort |
+
+---
+
+## 📊 Evaluation Metrics
+
+- **Runtime**: average over 10 trials for each algorithm and input type
+- **Input Sensitivity**: random, sorted, reverse-sorted, partially sorted
+- **Data Type Support**: `int`, `long long`, `float`, `double`
+- **Stability**: order preservation for equal elements
+- **Memory Usage**: peak resident memory during sorting
+- **Accuracy**: adjacent pair correctness after sorting
+
+---
+
+## 📝 Notes
+
+- Sorting algorithms are implemented independently for consistency in benchmarking.
+- All results, charts, and analysis are documented in the [final report PDF](./Sorting_Algorithm_Analysis_and_Implementation.pdf).
+- Library Sort was modified following Faujdar & Ghrera (2015) for improved performance.
+
+---
+
+## 📜 License
+
+This project is part of CSE331 coursework at UNIST.  
+Use for educational and research purposes only.
+
