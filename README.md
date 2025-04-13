@@ -1,10 +1,8 @@
-# CSE331 Sorting Algorithm Benchmark Project
+# Sorting Algorithm Benchmark Project
 
-This project implements and benchmarks 12 classical and advanced sorting algorithms under consistent experimental conditions. It evaluates performance, memory usage, stability, and accuracy across various input types and data scales.
+This project was conducted as part of the **CSE331: Algorithm** course at **UNIST**. It implements and benchmarks 12 classical and advanced sorting algorithms under consistent experimental conditions. The evaluation covers performance, memory usage, stability, and accuracy across various input types and data scales.
 
 Author: Jeonghoon Park (20201118)  
-UNIST, South Korea  
-[GitHub Project Page](https://github.com/hoonably/CSE331-Sorting-Project)
 
 ---
 
@@ -159,11 +157,4 @@ Results are stored in the `results/` directory.
 - Sorting algorithms are implemented independently for consistency in benchmarking.
 - All results, charts, and analysis are documented in the [final report PDF](./Sorting_Algorithm_Analysis_and_Implementation.pdf).
 - Library Sort was modified following Faujdar & Ghrera (2015) for improved performance.
-
----
-
-## 📜 License
-
-This project is part of CSE331 coursework at UNIST.  
-Use for educational and research purposes only.
 
