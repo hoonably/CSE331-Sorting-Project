@@ -4,10 +4,25 @@ from collections import defaultdict
 INPUT_FILE = "__combined_results.csv"
 OUTPUT_FILE = "__pivot_table.csv"
 
+DESIRED_TYPES = ["int", "long long", "float", "double"]
+DESIRED_ALGOS = [
+    "merge_sort",
+    "heap_sort",
+    "bubble_sort",
+    "insertion_sort",
+    "selection_sort",
+    "quick_sort",
+    "quick_sort_random",
+    "library_sort",
+    "cocktail_shaker_sort",
+    "tim_sort",
+    "comb_sort",
+    "tournament_sort",
+    "intro_sort"
+]
+
 def generate_pivot_table():
     data = defaultdict(dict)
-    types = set()
-    algorithms = set()
 
     with open(INPUT_FILE, newline='') as f:
         reader = csv.DictReader(f)
@@ -15,21 +30,15 @@ def generate_pivot_table():
             algo = row["algorithm"]
             typ = row["type"]
             time = float(row["time_sec"])
-
             data[algo][typ] = f"{time:.6f}"
-            types.add(typ)
-            algorithms.add(algo)
-
-    types = sorted(types)
-    algorithms = sorted(algorithms)
 
     with open(OUTPUT_FILE, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["algorithm"] + types)
+        writer.writerow(["algorithm"] + DESIRED_TYPES)
 
-        for algo in algorithms:
+        for algo in DESIRED_ALGOS:
             row = [algo]
-            for typ in types:
+            for typ in DESIRED_TYPES:
                 row.append(data[algo].get(typ, ""))
             writer.writerow(row)
 
