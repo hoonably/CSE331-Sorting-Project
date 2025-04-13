@@ -92,13 +92,12 @@ def benchmark_all():
             time_list = []
             acc_list = []
 
-            # Warmup without large input
-            # if not input_file.startswith("n1000000"):
-            #     warmup_io(input_path)
+            # Warmup
+            warmup_io(input_path)
 
             is_stack_overflow = False
             rep = 0
-            for rep in range(REPEAT):
+            while rep < REPEAT:
                 rep += 1
                 elapsed, accuracy = run_once(f"./{TEMP_EXEC}", input_path)
 
@@ -109,6 +108,7 @@ def benchmark_all():
                 time_list.append(elapsed)
                 acc_list.append(accuracy)
 
+                # If you dont want to run over 24 hours
                 # if elapsed > 300:
                 #     print(f"    {input_file}: 🕖 Time is over 5 minute, stop repeat")
                 #     break
