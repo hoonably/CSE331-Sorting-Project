@@ -22,21 +22,29 @@ void write_output(const std::string& filename, const std::vector<T>& data) {
     outfile << "\n";
 }
 
-long get_peak_memory_kb() {
+double get_peak_memory_kb() {
     struct rusage usage;
-    getrusage(RUSAGE_SELF, &usage);
-    return usage.ru_maxrss; // KB on Linux/macOS
+    getrusage(RUSAGE_SELF, &usage);  // B on macOS, KB on Linux
+    return usage.ru_maxrss / 1024.0;  // B → KB (macOS)
+    // return usage.ru_maxrss;  // KB (Linux)
 }
 
 int main(int argc, char* argv[]) {
 
-    long peak_memory = 0;
+    double start_memory, vector_memory, sort_memory;
+
+    start_memory = get_peak_memory_kb();
 
     std::vector<int> data = read_input<int>("../input/n0100000_random.txt");
+
+    vector_memory = get_peak_memory_kb();
+
     // run_sort(data);
     
+    sort_memory = get_peak_memory_kb();
 
-    peak_memory = 1.0 * get_peak_memory_kb() / 1024; // Convert to MB
-    std::cout << peak_memory << std::endl;
+    std::cout << vector_memory - start_memory << " "
+              << sort_memory - vector_memory << std::endl;
+
     return 0;
 }

@@ -5,7 +5,6 @@ import os
 import csv
 
 ALGORITHMS = {
-    "vector_only": None,  # No algorithm, just vector usage
     "merge_sort": "basic_sorting/merge_sort.cpp",
     "heap_sort": "basic_sorting/heap_sort.cpp",
     "bubble_sort": "basic_sorting/bubble_sort.cpp",
@@ -38,18 +37,20 @@ def compile_with_main(algo_name, algo_path):
     return result.returncode == 0
 
 def run_once():
-    result = subprocess.run(
-        [f"./{TEMP_EXEC}"],
-        capture_output=True, text=True
-    )
+    result = subprocess.run(["./temp_exec"], capture_output=True, text=True)
+    output = result.stdout.strip()
     try:
-        values = result.stdout.strip().split()
-        if len(values) >= 1:
-            return int(values[0])
+        vals = list(map(float, output.split()))
+        if len(vals) == 2:
+            return vals  # vector, sort
         else:
-            return -1
-    except ValueError:
-        return -1
+            print(f"⚠️ Unexpected output format: '{output}'")
+            return None
+    except Exception as e:
+        print(f"❌ Parse error: {e}, output: '{output}'")
+        return None
+
+
 
 def benchmark_memory():
     results = {}
@@ -58,35 +59,45 @@ def benchmark_memory():
         print(f"[+] Benchmarking memory for {algo_name}")
         if not compile_with_main(algo_name, algo_cpp):
             print(f"    ❌ Compile failed for {algo_name}")
-            results[algo_name] = -1
+            results[algo_name] = None
             continue
-        
-        run_once()  # Warm-up run to avoid cold start
 
-        mem_list = []
+        warmup = run_once()  # warm-up
+        if warmup is None:
+            results[algo_name] = None
+            continue
+
+        stats = []  # [(vector, sort), ...]
+
         for _ in range(REPEAT):
-            peak_mb = run_once()
-            if peak_mb == -1:
+            vals = run_once()
+            if vals is None:
                 print(f"    ❌ Measurement failed")
                 break
-            mem_list.append(peak_mb)
+            stats.append(vals)
 
-        if len(mem_list) == REPEAT:
-            avg_mem = round(sum(mem_list) / REPEAT, 2)
-            print(f"    📈 Peak Memory: {avg_mem} MB")
-            results[algo_name] = avg_mem
+        if len(stats) == REPEAT:
+            # 평균 계산
+            avg = [round(sum(col) / REPEAT, 2) for col in zip(*stats)]
+            print(f"    📊 vector: {avg[0]} KB, sort: {avg[1]} KB")
+            results[algo_name] = avg
         else:
-            results[algo_name] = -1
+            results[algo_name] = None
 
     return results
+
 
 def save_to_csv(results):
     with open("results_memory.csv", "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["algorithm", "peak_memory_mb"])
-        for algo, mem in results.items():
-            writer.writerow([algo, mem])
+        writer.writerow(["algorithm", "vector_kb", "sort_kb"])
+        for algo, vals in results.items():
+            if vals is not None:
+                writer.writerow([algo] + vals)
+            else:
+                writer.writerow([algo, "ERROR", ""])
     print("📄 Saved results to results_memory.csv")
+
 
 if __name__ == "__main__":
     results = benchmark_memory()
