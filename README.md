@@ -1,6 +1,6 @@
 # 🔢 Sorting Algorithm Benchmark Project
 
-<a href="./Sorting_Algorithm_Analysis_and_Implementation.pdf"><img src="https://img.shields.io/static/v1?label=Project&message=PDF file&color=red"></a>
+<a href="./Sorting_Algorithm_Analysis_and_Implementation.pdf"><img src="https://img.shields.io/static/v1?label=Project&message=PDF&color=red"></a>
 
 > A comparative study of 12 classical and modern sorting algorithms  
 > 📊 Performance • 🧠 Memory • 🧩 Stability • ✅ Accuracy
