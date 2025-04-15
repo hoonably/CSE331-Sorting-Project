@@ -2,9 +2,45 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <sys/resource.h>
+#include <thread>
+#include <atomic>
+#include <chrono>
+#include <mach/mach.h>
 
 // #include PLACEHOLDER
+
+std::atomic<bool> keep_running(true);
+
+double get_current_memory_kb() {
+    task_basic_info_data_t info;
+    mach_msg_type_number_t size = TASK_BASIC_INFO_COUNT;
+    if (task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size) != KERN_SUCCESS)
+        return -1;
+    return info.resident_size / 1024.0;
+}
+
+void monitor_memory_usage(std::atomic<int>& phase_flag, double& sorting_peak) {
+    int prev_phase = -1;
+    sorting_peak = 0.0;
+
+    while (keep_running.load()) {
+        double mem = get_current_memory_kb();
+        int current_phase = phase_flag.load();
+
+        if (current_phase == 1 && mem > sorting_peak) {
+            sorting_peak = mem;  // 정렬 중 peak 메모리 추적
+        }
+
+        if (current_phase != prev_phase) {
+            if (current_phase == 0) std::cout << "# MAKING VECTOR\n";
+            else if (current_phase == 1) std::cout << "# SORTING\n";
+            prev_phase = current_phase;
+        }
+
+        std::cout << mem << "\n";
+        std::this_thread::sleep_for(std::chrono::microseconds(10));
+    }
+}
 
 template <typename T>
 std::vector<T> read_input(const std::string& filename) {
@@ -15,36 +51,29 @@ std::vector<T> read_input(const std::string& filename) {
     return data;
 }
 
-template <typename T>
-void write_output(const std::string& filename, const std::vector<T>& data) {
-    std::ofstream outfile(filename);
-    for (const auto& num : data) outfile << num << " ";
-    outfile << "\n";
-}
+int main() {
+    std::atomic<int> phase_flag(-1);
+    double sorting_peak = 0.0;
 
-double get_peak_memory_kb() {
-    struct rusage usage;
-    getrusage(RUSAGE_SELF, &usage);  // B on macOS, KB on Linux
-    return usage.ru_maxrss / 1024.0;  // B → KB (macOS)
-    // return usage.ru_maxrss;  // KB (Linux)
-}
+    std::thread monitor(monitor_memory_usage, std::ref(phase_flag), std::ref(sorting_peak));
 
-int main(int argc, char* argv[]) {
+    double mem_before_vector = get_current_memory_kb();
+    std::cout << "# MEM_BEFORE_VECTOR " << mem_before_vector << "\n";
 
-    double start_memory, vector_memory, sort_memory;
-
-    start_memory = get_peak_memory_kb();
-
+    phase_flag = 0;
     std::vector<int> data = read_input<int>("../input/n0100000_random.txt");
 
-    vector_memory = get_peak_memory_kb();
+    double mem_after_vector = get_current_memory_kb();
+    std::cout << "# MEM_AFTER_VECTOR " << mem_after_vector << "\n";
 
+    phase_flag = 1;
     // run_sort(data);
-    
-    sort_memory = get_peak_memory_kb();
 
-    std::cout << vector_memory - start_memory << " "
-              << sort_memory - vector_memory << std::endl;
+    phase_flag = 2;
+    keep_running = false;
+    monitor.join();
+
+    std::cout << "# MEM_SORTING_PEAK " << sorting_peak << "\n";
 
     return 0;
 }
