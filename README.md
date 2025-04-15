@@ -1,22 +1,37 @@
-# Sorting Algorithm Benchmark Project
+# 🔢 Sorting Algorithm Benchmark Project
 
-This project was conducted as part of the **CSE331: Algorithm** course at **UNIST**. It implements and benchmarks 12 classical and advanced sorting algorithms under consistent experimental conditions. The evaluation covers performance, memory usage, stability, and accuracy across various input types and data scales.
+<a href="./Sorting_Algorithm_Analysis_and_Implementation.pdf"><img src="https://img.shields.io/static/v1?label=Project&message=PDF file&color=red&logo="></a> &ensp;
 
-Author: Jeonghoon Park (20201118)  
+> A comparative study of 12 classical and modern sorting algorithms  
+> 📊 Performance • 🧠 Memory • 🧩 Stability • ✅ Accuracy
+
+---
+
+## 🔥 Key Highlights
+
+<img src="./test_algo/results/compare/random.png" alt="Performance Chart" width="600">
+
+- 🥇 **Fastest Algorithm**: Tim Sort (0.0407s on 10⁶ elements)
+- ✅ **Most Stable**: Merge, Tim, Insertion, Bubble
+- 🧠 **Memory Efficient**: In-place methods (Quick, Heap, Selection)
+- 🧪 Full results in [PDF report](./Sorting_Algorithm_Analysis_and_Implementation.pdf)
 
 ---
 
-## 🔍 Overview
+## 📘 Overview
 
-Sorting is a fundamental operation in computer science. While classical algorithms like Merge Sort or Quick Sort are widely used, modern variants like Tim Sort and Intro Sort offer practical advantages in performance, adaptivity, and space complexity.
+This project was conducted as part of the **CSE331: Algorithm** course at **UNIST**.  
+It implements and benchmarks 12 sorting algorithms in C++ under consistent experimental conditions.
 
-This project explores:
+Goals:
+- Study algorithmic trade-offs in real-world settings
+- Evaluate runtime, memory, stability, and accuracy
+- Understand sensitivity to input order and data types
 
-- Implementation of 12 sorting algorithms in C++
-- Benchmarking across different input orders and data types
-- Analysis of runtime, memory usage, stability, and accuracy
+Author: Jeonghoon Park
 
 ---
+
 
 ## 📁 Directory Structure
 
@@ -44,7 +59,7 @@ This project explores:
 ├── test_memory/              # Memory usage benchmark
 │   ├── main.cpp
 │   ├── benchmark.py
-│   └── results_memory.csv
+│   └── memory_graph
 ├── test_stability/           # Stability testing
 │   ├── main.cpp
 │   ├── benchmark.py
@@ -124,37 +139,65 @@ Results are stored in the `results/` directory.
 
 ---
 
-### 📌 Prerequisites
-
-- Python 3.x
-- C++17 compatible compiler (e.g., `g++`, `clang++`)
-- Tested on macOS and Linux (UNIX-like systems recommended)
-
----
-
 ## 📈 Implemented Algorithms
 
 | Category  | Algorithms                                                                 |
 |-----------|----------------------------------------------------------------------------|
 | Basic     | Merge Sort, Heap Sort, Bubble Sort, Insertion Sort, Selection Sort, Quick Sort |
-| Advanced  | Quick Sort (Random Pivot), Library Sort, Tim Sort, Comb Sort, Cocktail Shaker Sort, Tournament Sort, Intro Sort |
+| Advanced  | Intro Sort, Tim Sort, Library Sort, Tournament Sort, Comb Sort, Cocktail Shaker Sort |
+
+*Note: `Quick Sort (Random)` is implemented as a variant in `basic_sorting/quick_sort_random.cpp`*
 
 ---
 
 ## 📊 Evaluation Metrics
 
-- **Runtime**: average over 10 trials for each algorithm and input type
-- **Input Sensitivity**: random, sorted, reverse-sorted, partially sorted
-- **Data Type Support**: `int`, `long long`, `float`, `double`
-- **Stability**: order preservation for equal elements
-- **Memory Usage**: peak resident memory during sorting
-- **Accuracy**: adjacent pair correctness after sorting
+- **Runtime**: Average over 10 trials
+- **Input Types**: Random, Sorted, Reverse, Partially Sorted
+- **Data Types**: `int`, `long long`, `float`, `double`
+- **Stability**: Repeated tests with duplicate-value inputs
+- **Accuracy**: Based on adjacent inversion rate  
+  \[
+  \text{Accuracy} = 1 - \frac{\text{\# of inversions}}{n - 1}
+  \]
+- **Memory Usage**: Resident memory via `ru_maxrss` sampling
+
+---
+
+## 🔬 Summary of Results
+
+### 🥇 Performance Ranking (n = 10⁶, Random Input)
+
+| Rank | Algorithm        | Runtime (sec) |
+|------|------------------|----------------|
+| 1    | Tim Sort         | 0.0407         |
+| 2    | Intro Sort       | 0.0492         |
+| 3    | Quick Sort       | 0.0528         |
+| 4    | Merge Sort       | 0.1079         |
+| 5    | Library Sort     | 0.1387         |
+| ...  | ...              | ...            |
+| 12   | Bubble Sort      | 916.645        |
+
+### ✅ Stability Check
+
+| ✅ Stable                          | ❌ Unstable                                  |
+|-----------------------------------|---------------------------------------------|
+| Merge, Insertion, Bubble, Tim     | Quick, Heap, Selection, Library, Intro      |
+
+### 🧠 Memory Usage (n = 10⁵, int)
+
+- **In-place**: Quick, Heap, Insertion, Selection
+- **High Overhead**:  
+  - Library Sort: +2600KB  
+  - Tournament Sort: +1450KB  
+  - Merge Sort: +947KB
 
 ---
 
 ## 📝 Notes
 
-- Sorting algorithms are implemented independently for consistency in benchmarking.
-- All results, charts, and analysis are documented in the [final report PDF](./Sorting_Algorithm_Analysis_and_Implementation.pdf).
-- Library Sort was modified following Faujdar & Ghrera (2015) for improved performance.
+- All algorithms are implemented from scratch with consistent interfaces
+- Library Sort follows [Faujdar & Ghrera, 2015] with adaptive gap rebalancing  
+  → Minor accuracy drops (~1%) on large random inputs
 
+---
