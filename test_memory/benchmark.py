@@ -94,12 +94,17 @@ def plot_memory_log(algorithm_name, mem_usage, phases):
     plt.tight_layout()
     
     plot_dir = "memory_graph"
-    plot_file = f"{plot_dir}/{algorithm_name}.png"
     os.makedirs(plot_dir, exist_ok=True)
 
-    plt.savefig(plot_file)
+    png_file = f"{plot_dir}/{algorithm_name}.png"
+    pdf_file = f"{plot_dir}/{algorithm_name}.pdf"
+
+    plt.savefig(png_file)
+    plt.savefig(pdf_file)
     plt.close()
-    print(f"    📈 Saved graph to {plot_file}")
+
+    print(f"    📈 Saved graph to {png_file} and {pdf_file}")
+
 
 def run_and_collect(algo_name, repeat=10):
     print(f"[+] Benchmarking {algo_name} x {repeat}")
