@@ -28,8 +28,6 @@ Goals:
 - Evaluate runtime, memory, stability, and accuracy
 - Understand sensitivity to input order and data types
 
-Author: Jeonghoon Park
-
 ---
 
 
